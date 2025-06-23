@@ -26,16 +26,7 @@ export default function App() {
       <Navbar />
       <Router>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Main
-                name={user ? user.name : "Loading..."}
-                phone={user ? user.phone : "Not found number"}
-                email={user ? user.email : "Email not found"}
-              />
-            }
-          />
+          <Route path="/" element={<Main />} />
           <Route path="/users" element={<UsersApp />} />
           <Route path="/about" element={<About />} />
           <Route path="/todo-list" element={<TodoApp />} />
@@ -44,4 +35,3 @@ export default function App() {
     </>
   );
 }
-

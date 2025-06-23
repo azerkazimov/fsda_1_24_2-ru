@@ -1,24 +1,36 @@
 .navbar {
-    padding: 10px 20px;
-    background-color: black;
+    padding: 48px 20px;
+    background-color: transparent;
     color: white;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .navbar-menu {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
+    gap: 94px;
+
 }
 
 .nav-logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #fff;
+    font-size: 38px;
+    font-weight: 800;
+    background-image: linear-gradient(to right, #35c66b, #237249 );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
 .nav-links {
     display: flex;
-    gap: 20px;
+    gap: 94px;
 }
 
 .nav-item a {

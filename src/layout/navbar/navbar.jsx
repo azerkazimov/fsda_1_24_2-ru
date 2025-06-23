@@ -6,7 +6,7 @@ export default function Navbar() {
       <div className="container">
         <div className="navbar-menu">
           <a href="/" className="nav-logo">
-            MyApp
+            StarBucks
           </a>
           <ul className="nav-links">
             <li className="nav-item">

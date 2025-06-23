@@ -1,4 +1,6 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -8,11 +10,13 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #121517;
+  min-height: 200vh;
 }
 
 code {
@@ -20,8 +24,46 @@ code {
     monospace;
 }
 
-.container{
-  max-width: 1200px;
+.container {
+  max-width: 1294px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.col-md-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.btn {
+  background: linear-gradient(90deg, #35c66b, #237249);
+  color: #fff;
+  padding: 20px 44px;
+  min-width: 168.75px;
+  border: none;
+  border-radius: 80px;
+  font-size: 24px;
+}
+
+.btn-primary{
+  padding: 20px 80px;
+  font-weight: 600;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #fff;
+  padding: 20px 24px;
+  border: 1px solid #dadada82;
+  border-radius: 80px;
 }
