@@ -1,6 +1,6 @@
 .app-container {
+    margin-top: 100px;
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     padding: 2rem 1rem;
 }
@@ -19,7 +19,7 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.header {
+.user-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -37,7 +37,7 @@
 .icon-wrapper {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: linear-gradient(45deg, #35c66b, #237249);
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -59,7 +59,7 @@
 }
 
 .add-button {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: linear-gradient(135deg, #35c66b, #25954e);
     color: white;
     border: none;
     padding: 1rem 1.5rem;

@@ -2,6 +2,7 @@ import { User, Plus, Loader, AlertCircle, Edit2, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./user-app.css";
 
+
 export default function UsersApp() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -165,7 +166,7 @@ export default function UsersApp() {
         <div className="app-wrapper">
           <div className="main-card">
             {/* Header */}
-            <div className="header">
+            <div className="user-header">
               <div className="header-left">
                 <div className="icon-wrapper">
                   <User className="header-icon" size={28} />
@@ -194,7 +195,6 @@ export default function UsersApp() {
                 </button>
               </div>
             )}
-
             {/* Form */}
             {showForm && (
               <div className="form-card">

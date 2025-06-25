@@ -22,6 +22,14 @@ export default function Navbar() {
               <a href="/todo-list">Todo</a>
             </li>
           </ul>
+          <div className="last">
+            <span className="nav-item ">
+              <a href="/login">Login</a>
+            </span>
+            <span className="nav-item ">
+              <a href="/register">Register</a>
+            </span>
+          </div>
         </div>
       </div>
     </nav>

@@ -11,6 +11,7 @@
 }
 
 .navbar-menu {
+    position: relative;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -41,4 +42,11 @@
 
 .nav-item:hover {
     text-decoration: underline;
+}
+
+.last{
+    position: absolute;
+    right: 0;
+    display: flex;
+    gap: 15px;
 }
