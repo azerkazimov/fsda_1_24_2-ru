@@ -29,7 +29,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/users" element={<UsersApp />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<About user="Mussolini"/>} />
           <Route path="/todo-list" element={<TodoApp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

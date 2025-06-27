@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './todo-app.css';
 import { TodoItem } from './todo-item';
 
@@ -35,7 +35,7 @@ export default function TodoApp() {
   }, []);
 
   // Добавить новое todo
-  const addTodo = (e) => {
+  const addTodo = useCallback((e) => {
     e.preventDefault();
     if (inputValue.trim()) {
       const newTodo = {
@@ -44,11 +44,11 @@ export default function TodoApp() {
         completed: false,
         createdAt: new Date().toLocaleString()
       };
-      setTodos([...todos, newTodo]);
+      setTodos(prevTodos => [...prevTodos, newTodo]);
       setInputValue('');
       inputRef.current.focus();
     }
-  };
+  }, [inputValue]);
 
   // Удалить todo
   const deleteTodo = (id) => {

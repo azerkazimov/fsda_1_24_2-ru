@@ -1,5 +1,5 @@
 .navbar {
-    padding: 48px 20px;
+    padding: 28px 20px;
     background-color: transparent;
     color: white;
     position: fixed;
@@ -8,6 +8,14 @@
     top: 0;
     width: 100%;
     z-index: 1000;
+}
+
+.navbar.scrolled {
+    background: #ffffff1a;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid #ffffff33;
+    box-shadow: 0 8px 32px 0 rgba(31, 135, 40, 0.4);
 }
 
 .navbar-menu {
@@ -22,7 +30,7 @@
 .nav-logo {
     font-size: 38px;
     font-weight: 800;
-    background-image: linear-gradient(to right, #35c66b, #237249 );
+    background-image: linear-gradient(to right, #35c66b, #237249);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -44,7 +52,7 @@
     text-decoration: underline;
 }
 
-.last{
+.last {
     position: absolute;
     right: 0;
     display: flex;
