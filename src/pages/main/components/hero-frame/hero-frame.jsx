@@ -9,7 +9,7 @@ export default function HeroFrame() {
   return (
     <div className={styles.container}>
       <div className={styles["hero-frame"]}>
-        <Sticker sign="We have" size='204' top={'-80px'} left={'0px'} right={'-100px'}/>
+        <Sticker sign="We have" size='204' top={'-80px'} left={'-100px'}/>
         <HeroItem
           image={heart}
           title={"Tasty"}

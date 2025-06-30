@@ -9,7 +9,7 @@ export default function Hero() {
             <div className="hero-content">
               <h1 className="hero-title">
                 New Cafe <br />
-                by <span className="gradient">StarBucks</span>
+                by <span className="highlight">StarBucks</span>
               </h1>
 
               <p className="hero-text">

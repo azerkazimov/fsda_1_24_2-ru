@@ -28,13 +28,7 @@
     margin-top: 16px;
 }
 
-.gradient {
-    background: linear-gradient(90deg, #35c66b, #237249);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-}
+
 
 .hero-btns {
     display: flex;
