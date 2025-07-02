@@ -1,5 +1,10 @@
+.delicious-section{
+    overflow: hidden;
+}
+
 .delicious-section-left-side{
     text-align: start;
+    
 }
 
 .image-wrapper {
