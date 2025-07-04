@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
 import "./regisrt-form.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function RegistrForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -13,11 +16,16 @@ export default function RegistrForm() {
       name: "",
       email: "",
       password: "",
-      confirmPassword: "",
+      age: "",
+      theme: "dark",
+      notifications: false,
+      newsletter: false,
     },
   });
 
   const password = watch("password");
+
+  const [successMessage, setSuccessMessage] = useState("");
 
   const validatePassword = (value) => {
     if (value.length < 8) return "Минимум 8 символов";
@@ -28,15 +36,35 @@ export default function RegistrForm() {
   };
 
   const onSubmit = (data) => {
+    const userData = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      age: data.age,
+      theme: data.theme,
+      notifications: data.notifications,
+      newsletter: data.newsletter,
+    };
+
+    localStorage.setItem("userdata", JSON.stringify(userData));
+
     console.log(data);
+    setSuccessMessage("Вы зарегались. Пройдите авторизацию");
+
+    setTimeout(() => {
+      navigate("/auth/login");
+    }, 2000);
+
     reset();
   };
 
   return (
     <form className="user-form" onSubmit={handleSubmit(onSubmit)}>
+      {successMessage && (
+        <div className="form-success-message">{successMessage}</div>
+      )}
       <input
         type="text"
-        name="name"
         placeholder="Your name"
         className="form-control"
         {...register("name", {
@@ -56,7 +84,6 @@ export default function RegistrForm() {
       )}
       <input
         type="email"
-        name="email"
         placeholder="Your email"
         className="form-control"
         {...register("email", { required: "Email обязательно" })}
@@ -66,7 +93,6 @@ export default function RegistrForm() {
       )}
       <input
         type="password"
-        name="password"
         placeholder="********"
         className="form-control"
         {...register("password", {
@@ -79,7 +105,6 @@ export default function RegistrForm() {
       )}
       <input
         type="password"
-        name="confirmPassword"
         placeholder="********"
         className="form-control"
         {...register("confirmPassword", {
@@ -90,6 +115,46 @@ export default function RegistrForm() {
       {errors.confirmPassword && (
         <span style={{ color: "red" }}>{errors.confirmPassword.message}</span>
       )}
+
+      <input
+        type="text"
+        placeholder="Your age"
+        className="form-control"
+        {...register("age")}
+      />
+
+      <div className="check-theme">
+        <label>
+          <input
+            className="radio-btn"
+            type="radio"
+            value="light"
+            {...register("theme")}
+          />
+          Light
+        </label>
+        <label>
+          <input
+            className="radio-btn"
+            type="radio"
+            value="dark"
+            {...register("theme")}
+          />
+          Dark
+        </label>
+      </div>
+
+      <div className="check-theme">
+        <label>
+          <input type="checkbox" {...register("newsletter")} />
+          Subscribe
+        </label>
+
+        <label>
+          <input type="checkbox" {...register("notifications")} />
+          Notification
+        </label>
+      </div>
 
       <button type="submit" className="btn-submit">
         Submit

@@ -46,3 +46,24 @@
     gap:10px;
 }
 
+.form-error-message{
+    color: #ff4d4f;
+    font-size: 18px;
+    margin-top: 5px;
+    padding: 15px 10px;
+    border-radius: 12px;
+    text-align: center;
+    background-color: #f7c9c9;
+}
+
+
+.form-success-message {
+    color: #35c66b;
+    background-color: #e6f9ee;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid #35c66b;
+}
+

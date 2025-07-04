@@ -1,31 +1,27 @@
 import { useState } from "react";
 import "./login-form.css";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   // const [name, setName] = useState("");
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
-    age: "",
-    theme: "dark",
-    notifications: false,
-    newsletter: false,
   });
 
+  // show error and success message
+  const [error, setError] = useState("");
+  const [succesMessage, setSuccesMessage] = useState("");
+
+  // validation fields
   const [errors, setErrors] = useState({});
 
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.name) {
-      newErrors.name = "Name обязателен";
-    } else if (formData.name.length < 2) {
-      newErrors.name = "Name некорректен";
-    }
     if (!formData.email) {
       newErrors.email = "Email обязателен";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -43,7 +39,6 @@ export default function LoginForm() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    e.preventDefault();
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -54,40 +49,56 @@ export default function LoginForm() {
     e.preventDefault();
     console.log(formData);
 
+    const storedData = localStorage.getItem("userdata");
+
+    if (!storedData) {
+      setError("Пользователь не найден. Пожалуйста зарегистрируйтесь");
+      setSuccesMessage("");
+      setTimeout(() => {
+        navigate("/auth/register");
+      }, 2000);
+      return;
+    }
+
     const validationErrors = validateForm();
-    
+
     if (Object.keys(validationErrors).length === 0) {
-      console.log('Форма валидна:', formData);
+      console.log("Форма валидна:", formData);
       setErrors({});
+
+      const userData = JSON.parse(storedData);
+
+      if (
+        userData.email === formData.email &&
+        userData.password === formData.password
+      ) {
+        const loginData = {
+          isLoggedIn: true,
+          name: userData.name,
+          email: userData.email,
+          loginTime: new Date().toISOString(),
+        };
+
+        localStorage.setItem("logindata", JSON.stringify(loginData));
+        setSuccesMessage("Вы успешно авторизовались");
+        setError("");
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      } else {
+        setError("Вы ввели неверные данные");
+      }
     } else {
       setErrors(validationErrors);
     }
   };
 
-  const handleRadioChange = (e) => {
-    setFormData({
-      theme: e.target.value,
-    });
-  };
-
-  const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: checked,
-    }));
-  };
-
   return (
     <form className="user-form" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="name"
-        placeholder="Your name"
-        className="form-control"
-        onChange={handleInputChange}
-      />
-      {errors.name && <span style={{color: 'red'}}>{errors.name}</span>}
+      {error && <div className="form-error-message">{error}</div>}
+      {succesMessage && (
+        <div className="form-success-message">{succesMessage}</div>
+      )}
       <input
         type="email"
         name="email"
@@ -95,7 +106,7 @@ export default function LoginForm() {
         className="form-control"
         onChange={handleInputChange}
       />
-      {errors.email && <span style={{color: 'red'}}>{errors.email}</span>}
+      {errors.email && <span style={{ color: "red" }}>{errors.email}</span>}
       <input
         type="password"
         name="password"
@@ -103,61 +114,10 @@ export default function LoginForm() {
         className="form-control"
         onChange={handleInputChange}
       />
-      {errors.password && <span style={{color: 'red'}}>{errors.password}</span>}
-      <input
-        type="text"
-        name="age"
-        placeholder="Your age"
-        className="form-control"
-        onChange={handleInputChange}
-      />
+      {errors.password && (
+        <span style={{ color: "red" }}>{errors.password}</span>
+      )}
 
-      <div className="check-theme">
-        <label>
-          <input
-            className="radio-btn"
-            type="radio"
-            name="theme"
-            value="light"
-            checked={formData.theme === "light"}
-            onChange={handleRadioChange}
-          />
-          Light
-        </label>
-        <label>
-          <input
-            className="radio-btn"
-            type="radio"
-            name="theme"
-            value="dark"
-            checked={formData.theme === "dark"}
-            onChange={handleRadioChange}
-          />
-          Dark
-        </label>
-      </div>
-
-      <div className="check-theme">
-        <label>
-          <input
-            type="checkbox"
-            name="newsletter"
-            checked={formData.newsletter}
-            onChange={handleCheckboxChange}
-          />
-          Subscribe
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            name="notifications"
-            checked={formData.notifications}
-            onChange={handleCheckboxChange}
-          />
-          Notification
-        </label>
-      </div>
       <button type="submit" className="btn-submit">
         Submit
       </button>

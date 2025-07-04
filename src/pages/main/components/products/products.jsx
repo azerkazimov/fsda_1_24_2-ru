@@ -9,8 +9,10 @@ export default function Products() {
         <div className="col-10">
           <div className="row">
             <div className="col-12 col-md-6 title-wrapper">
-              <h2 className="product-title">New Our <span className="highlight">Products</span></h2>
-              <ShadowGreen size="390px" left="20%" top="-40px"/>
+              <h2 className="product-title">
+                New Our <span className="highlight">Products</span>
+              </h2>
+              <ShadowGreen size="390px" left="20%" top="-40px" />
             </div>
             <div className="col-12 col-md-6 product-content">
               <p className="product-description">
@@ -22,7 +24,6 @@ export default function Products() {
           </div>
         </div>
       </div>
-
 
       <Slider />
     </>

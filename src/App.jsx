@@ -1,40 +1,66 @@
-import { useEffect, useState } from "react";
 import Main from "./pages/main/main";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UsersApp from "./pages/users/users-app";
-import Navbar from "./layout/navbar/navbar";
+
 import About from "./pages/about/about";
 import TodoApp from "./pages/todo-list/todo-app";
-import Login from "./pages/login/login";
-import Register from "./pages/register/register";
+import { AuthLayout, MainLayout } from "./layout/layout";
+import Login from "./pages/auth/login/login";
+import Register from "./pages/auth/register/register";
+
+// ====== you can write middle ware like this ======
+// function LayoutWithNavbar({ children }) {
+//   return (
+//     <>
+//       <Navbar />
+//       {children}
+//     </>
+//   );
+// }
+
+// // Layout компонент без Navbar
+// function LayoutWithoutNavbar({ children }) {
+//   return <>{children}</>;
+// }
 
 export default function App() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users/1")
-      .then((res) => res.json())
-      .then((data) => {
-        setUser(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
 
   return (
     <>
-      <Navbar />
       <Router>
         <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/users" element={<UsersApp />} />
-          <Route path="/about" element={<About user="Mussolini"/>} />
-          <Route path="/todo-list" element={<TodoApp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          {/* main routes with Navbar */}
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Main />} />
+            <Route path="/users" element={<UsersApp />} />
+            <Route path="/about" element={<About user="Mussolini" />} />
+            <Route path="/todo-list" element={<TodoApp />} />
+          </Route>
+
+          {/* Auth routes without Navbar */}
+          <Route element={<AuthLayout />}>
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/register" element={<Register />} />
+          </Route>
         </Routes>
       </Router>
     </>
   );
+
+  // ===== then you must wrap all routes separately in layout with or without nav layout =====
+  // return (
+  //   <Router>
+  //     <Routes>
+  //       {/* Маршруты с Navbar */}
+  //       <Route path="/" element={<LayoutWithNavbar><Main /></LayoutWithNavbar>} />
+  //       <Route path="/users" element={<LayoutWithNavbar><UsersApp /></LayoutWithNavbar>} />
+  //       <Route path="/about" element={<LayoutWithNavbar><About user="Mussolini"/></LayoutWithNavbar>} />
+  //       <Route path="/todo-list" element={<LayoutWithNavbar><TodoApp /></LayoutWithNavbar>} />
+
+  //       {/* Маршруты без Navbar */}
+  //       <Route path="/login" element={<LayoutWithoutNavbar><Login /></LayoutWithoutNavbar>} />
+  //       <Route path="/register" element={<LayoutWithoutNavbar><Register /></LayoutWithoutNavbar>} />
+  //     </Routes>
+  //   </Router>
+  // );
 }
