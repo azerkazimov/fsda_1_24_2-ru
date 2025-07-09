@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import "./navbar.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Navbar() {
-  const navigate = useNavigate()
+export default function Navbar({ isAutentificated, user, onLogout }) {
+  const navigate = useNavigate();
+  // const [loggedIn, setLoggedIn] = useState(null);
+
   const [scrolled, setScrolled] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
@@ -17,15 +18,15 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const storredData = localStorage.getItem("logindata");
-    try {
-      const userData = JSON.parse(storredData);
-      setLoggedIn(userData?.isLoggedIn || false);
-    } catch (error) {
-      setLoggedIn(false);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storredData = localStorage.getItem("logindata");
+  //   try {
+  //     const userData = JSON.parse(storredData);
+  //     setLoggedIn(userData?.isLoggedIn || false);
+  //   } catch (error) {
+  //     setLoggedIn(false);
+  //   }
+  // }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -44,43 +45,44 @@ export default function Navbar() {
   }, [dropdownOpen]);
 
   const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen)
+    setDropdownOpen(!dropdownOpen);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("logindata")
-    setLoggedIn(false)
-    setDropdownOpen(false)
-    navigate("/auth/login")
-  };
+
+
 
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="container">
         <div className="navbar-menu">
-          <a href="/" className="nav-logo">
+          <Link to="/" className="nav-logo">
             StarBucks
-          </a>
+          </Link>
           <ul className="nav-links">
             <li className="nav-item">
-              <a href="/">Home</a>
+              <Link to="/">Home</Link>
             </li>
             <li className="nav-item">
-              <a href="/users">Users</a>
+              <Link to="/users">Users</Link>
             </li>
             <li className="nav-item">
-              <a href="/about">About</a>
+              <Link to="/about">About</Link>
             </li>
             <li className="nav-item">
-              <a href="/todo-list">Todo</a>
+              <Link to="/todo-list">Todo</Link>
             </li>
           </ul>
-          {loggedIn ? (
+          {isAutentificated ? (
             <div className="avatar-container">
               <div className="avatar" onClick={toggleDropdown}></div>
+              <span>{user?.name}</span>
               {dropdownOpen && (
-                <div className="dropdown-menu" >
-                  <button className="dropdown-item" onClick={handleLogout}>
+                <div className="dropdown-menu">
+                  <Link to="/dashboard" className="dropdown-item">
+                    Dashboard
+                  </Link>
+
+                  <button className="dropdown-item" onClick={onLogout}>
                     Logout
                   </button>
                 </div>
@@ -89,10 +91,10 @@ export default function Navbar() {
           ) : (
             <div className="last">
               <span className="nav-item ">
-                <a href="/auth/login">Login</a>
+                <Link to="/auth/login">Login</Link>
               </span>
               <span className="nav-item ">
-                <a href="/auth/register">Register</a>
+                <Link to="/auth/register">Register</Link>
               </span>
             </div>
           )}

@@ -6,6 +6,7 @@ export default function LoginForm() {
   // const [name, setName] = useState("");
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
+  
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -83,7 +84,7 @@ export default function LoginForm() {
         setSuccesMessage("Вы успешно авторизовались");
         setError("");
         setTimeout(() => {
-          navigate("/");
+          navigate("/dashboard");
         }, 2000);
       } else {
         setError("Вы ввели неверные данные");

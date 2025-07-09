@@ -4,9 +4,15 @@ import UsersApp from "./pages/users/users-app";
 
 import About from "./pages/about/about";
 import TodoApp from "./pages/todo-list/todo-app";
-import { AuthLayout, MainLayout } from "./layout/layout";
+
 import Login from "./pages/auth/login/login";
 import Register from "./pages/auth/register/register";
+import Dashboard from "./pages/dashboard/dashboard";
+import { MainLayout } from "./layout/main-layout";
+import { AuthLayout } from "./layout/auth-layout";
+import { ProtechtedLayout } from "./layout/protected-layout";
+import ProtectedRoute from "./utils/protected-route/protechted-route";
+import PublicRoute from "./utils/public-route/public-route";
 
 // ====== you can write middle ware like this ======
 // function LayoutWithNavbar({ children }) {
@@ -24,7 +30,6 @@ import Register from "./pages/auth/register/register";
 // }
 
 export default function App() {
-
   return (
     <>
       <Router>
@@ -37,10 +42,36 @@ export default function App() {
             <Route path="/todo-list" element={<TodoApp />} />
           </Route>
 
+          {/* protected route with navbar */}
+          <Route element={<ProtechtedLayout />}>
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+
           {/* Auth routes without Navbar */}
           <Route element={<AuthLayout />}>
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="/auth/register" element={<Register />} />
+            <Route
+              path="/auth/login"
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/auth/register"
+              element={
+                <PublicRoute>
+                  <Register />
+                </PublicRoute>
+              }
+            />
           </Route>
         </Routes>
       </Router>

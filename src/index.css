@@ -94,3 +94,22 @@ code {
     background-clip: text;
     color: transparent;
 }
+
+.access{
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  color: #e2e2e2;
+}
+.access h2{
+  font-size: 55px;
+  color: #e2e2e2;
+}
+.access span a{
+  font-size: 22px;
+  color: #35c66b;
+}
