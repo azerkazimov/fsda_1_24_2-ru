@@ -1,7 +1,7 @@
 import { User, Plus, Loader, AlertCircle, Edit2, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./user-app.css";
-
+import { Link } from "react-router-dom";
 
 export default function UsersApp() {
   const [users, setUsers] = useState([]);
@@ -21,9 +21,7 @@ export default function UsersApp() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
-      );
+      const response = await fetch(`https://jsonplaceholder.typicode.com/users`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -161,7 +159,7 @@ export default function UsersApp() {
   }, []);
 
   return (
-    <>
+    <div className="container">
       <div className="app-container">
         <div className="app-wrapper">
           <div className="main-card">
@@ -171,14 +169,14 @@ export default function UsersApp() {
                 <div className="icon-wrapper">
                   <User className="header-icon" size={28} />
                 </div>
-                <h1 className="title">Управление пользователями</h1>
+                <h1 className="title">Manage users</h1>
               </div>
               <button
                 onClick={() => setShowForm(!showForm)}
-                className={`add-button ${showForm ? 'active' : ''}`}
+                className={`btn-add ${showForm ? "active" : ""}`}
               >
                 <Plus size={20} />
-                <span>Добавить пользователя</span>
+                <span>Add user</span>
               </button>
             </div>
 
@@ -187,10 +185,7 @@ export default function UsersApp() {
               <div className="error-alert">
                 <AlertCircle size={20} />
                 <span className="error-text">{error}</span>
-                <button
-                  onClick={() => setError(null)}
-                  className="close-button"
-                >
+                <button onClick={() => setError(null)} className="close-button">
                   ×
                 </button>
               </div>
@@ -199,11 +194,13 @@ export default function UsersApp() {
             {showForm && (
               <div className="form-card">
                 <h2 className="form-title">
-                  {editingUser ? "Редактировать пользователя" : "Новый пользователь"}
+                  {editingUser
+                    ? "Edit user"
+                    : "Add new user"}
                 </h2>
                 <div className="form-grid">
                   <div className="input-group">
-                    <label className="label">Имя *</label>
+                    <label className="label">Name *</label>
                     <input
                       type="text"
                       value={formData.name}
@@ -211,7 +208,7 @@ export default function UsersApp() {
                         setFormData({ ...formData, name: e.target.value })
                       }
                       className="input"
-                      placeholder="Введите имя"
+                      placeholder="Your name"
                     />
                   </div>
 
@@ -224,12 +221,12 @@ export default function UsersApp() {
                         setFormData({ ...formData, email: e.target.value })
                       }
                       className="input"
-                      placeholder="Введите email"
+                      placeholder="Your email"
                     />
                   </div>
 
                   <div className="input-group">
-                    <label className="label">Телефон</label>
+                    <label className="label">Phone</label>
                     <input
                       type="tel"
                       value={formData.phone}
@@ -237,12 +234,12 @@ export default function UsersApp() {
                         setFormData({ ...formData, phone: e.target.value })
                       }
                       className="input"
-                      placeholder="Введите телефон"
+                      placeholder="Your phone"
                     />
                   </div>
 
                   <div className="input-group">
-                    <label className="label">Веб-сайт</label>
+                    <label className="label">Web-page</label>
                     <input
                       type="url"
                       value={formData.website}
@@ -250,22 +247,16 @@ export default function UsersApp() {
                         setFormData({ ...formData, website: e.target.value })
                       }
                       className="input"
-                      placeholder="Введите URL веб-сайта"
+                      placeholder="Your web-page URL"
                     />
                   </div>
 
                   <div className="button-group">
-                    <button
-                      onClick={handleSubmit}
-                      className="submit-button"
-                    >
-                      {editingUser ? "Обновить" : "Создать"}
+                    <button onClick={handleSubmit} className="submit-button">
+                      {editingUser ? "Update" : "Create"}
                     </button>
-                    <button
-                      onClick={cancelEdit}
-                      className="cancel-button"
-                    >
-                      Отмена
+                    <button onClick={cancelEdit} className="cancel-button">
+                      Cancel
                     </button>
                   </div>
                 </div>
@@ -283,64 +274,64 @@ export default function UsersApp() {
             {/* Users List */}
             {!loading && users.length > 0 && (
               <div className="users-section">
-                <h2 className="section-title">
-                  Пользователи ({users.length})
-                </h2>
+                <h2 className="section-title">Users ({users.length})</h2>
                 <div className="users-grid">
                   {users.map((user) => (
-                    <div key={user.id} className="user-card">
-                      <div className="user-content">
-                        <div className="user-info">
-                          <h3 className="user-name">{user.name}</h3>
-                          <div className="user-detail">
-                            <strong>Email:</strong> {user.email}
+                    <Link to={`/users/${user.id}`}>
+                      <div key={user.id} className="user-card">
+                        <div className="user-content">
+                          <div className="user-info">
+                            <h3 className="user-name">{user.name}</h3>
+                            <div className="user-detail">
+                              <strong>Email:</strong> {user.email}
+                            </div>
+                            {user.phone && (
+                              <div className="user-detail">
+                                <strong>Телефон:</strong> {user.phone}
+                              </div>
+                            )}
+                            {user.website && (
+                              <div className="user-detail">
+                                <strong>Сайт:</strong>
+                                <a
+                                  href={`http://${user.website}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="website-link"
+                                >
+                                  {user.website}
+                                </a>
+                              </div>
+                            )}
                           </div>
-                          {user.phone && (
-                            <div className="user-detail">
-                              <strong>Телефон:</strong> {user.phone}
-                            </div>
-                          )}
-                          {user.website && (
-                            <div className="user-detail">
-                              <strong>Сайт:</strong>
-                              <a
-                                href={`http://${user.website}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="website-link"
-                              >
-                                {user.website}
-                              </a>
-                            </div>
-                          )}
-                        </div>
 
-                        <div className="user-actions">
-                          <button
-                            onClick={() => startEdit(user)}
-                            className="action-button edit-button"
-                            title="Редактировать"
-                          >
-                            <Edit2 size={18} />
-                          </button>
-                          <button
-                            onClick={() => {
-                              if (
-                                window.confirm(
-                                  "Вы уверены, что хотите удалить этого пользователя?"
-                                )
-                              ) {
-                                deleteUser(user.id);
-                              }
-                            }}
-                            className="action-button delete-button"
-                            title="Удалить"
-                          >
-                            <Trash2 size={18} />
-                          </button>
+                          <div className="user-actions">
+                            <button
+                              onClick={() => startEdit(user)}
+                              className="action-button edit-button"
+                              title="Редактировать"
+                            >
+                              <Edit2 size={18} />
+                            </button>
+                            <button
+                              onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "Вы уверены, что хотите удалить этого пользователя?"
+                                  )
+                                ) {
+                                  deleteUser(user.id);
+                                }
+                              }}
+                              className="action-button delete-button"
+                              title="Удалить"
+                            >
+                              <Trash2 size={18} />
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -351,10 +342,7 @@ export default function UsersApp() {
               <div className="empty-state">
                 <User size={64} className="empty-icon" />
                 <p className="empty-text">Пользователи не найдены</p>
-                <button
-                  onClick={fetchUsers}
-                  className="refresh-button"
-                >
+                <button onClick={fetchUsers} className="refresh-button">
                   Обновить
                 </button>
               </div>
@@ -364,14 +352,14 @@ export default function UsersApp() {
             <div className="api-info">
               <h3 className="api-title">Информация о JSONPlaceholder API</h3>
               <p className="api-description">
-                Это демонстрационное приложение использует JSONPlaceholder API для
-                симуляции CRUD операций. Фактические данные на сервере не
+                Это демонстрационное приложение использует JSONPlaceholder API
+                для симуляции CRUD операций. Фактические данные на сервере не
                 изменяются, но все HTTP запросы выполняются корректно.
               </p>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

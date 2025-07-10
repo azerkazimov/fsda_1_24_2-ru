@@ -1,16 +1,17 @@
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Main from "./pages/main/main";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UsersApp from "./pages/users/users-app";
 
 import About from "./pages/about/about";
 import TodoApp from "./pages/todo-list/todo-app";
 
+import { AuthLayout } from "./layout/auth-layout";
+import { MainLayout } from "./layout/main-layout";
+import { ProtechtedLayout } from "./layout/protected-layout";
 import Login from "./pages/auth/login/login";
 import Register from "./pages/auth/register/register";
 import Dashboard from "./pages/dashboard/dashboard";
-import { MainLayout } from "./layout/main-layout";
-import { AuthLayout } from "./layout/auth-layout";
-import { ProtechtedLayout } from "./layout/protected-layout";
+import UserDetails from "./pages/users/user-details";
 import ProtectedRoute from "./utils/protected-route/protechted-route";
 import PublicRoute from "./utils/public-route/public-route";
 
@@ -38,6 +39,7 @@ export default function App() {
           <Route element={<MainLayout />}>
             <Route path="/" element={<Main />} />
             <Route path="/users" element={<UsersApp />} />
+            <Route path="/users/:id" element={<UserDetails />} />
             <Route path="/about" element={<About user="Mussolini" />} />
             <Route path="/todo-list" element={<TodoApp />} />
           </Route>

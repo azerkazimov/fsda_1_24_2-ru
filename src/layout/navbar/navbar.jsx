@@ -18,16 +18,6 @@ export default function Navbar({ isAutentificated, user, onLogout }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // useEffect(() => {
-  //   const storredData = localStorage.getItem("logindata");
-  //   try {
-  //     const userData = JSON.parse(storredData);
-  //     setLoggedIn(userData?.isLoggedIn || false);
-  //   } catch (error) {
-  //     setLoggedIn(false);
-  //   }
-  // }, []);
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!event.target.closest(".avatar-container")) {
@@ -47,9 +37,6 @@ export default function Navbar({ isAutentificated, user, onLogout }) {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
-
-
-
 
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
