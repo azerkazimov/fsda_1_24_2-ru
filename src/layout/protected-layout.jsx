@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Loading from "../components/loading/loading";
 import { useAuthMiddleware } from "../middleware/use-auth-middleware";
 import Navbar from "./navbar/navbar";
+import Footer from "./footer/footer";
 
 export function ProtechtedLayout({
   requiredAuth = true,
@@ -10,7 +11,7 @@ export function ProtechtedLayout({
   const { isAutentificated, loading, user, logout } = useAuthMiddleware();
 
   if (loading) {
-    <Loading />;
+    return <Loading />;
   }
 
   if (!isAutentificated && requiredAuth) {
@@ -28,8 +29,13 @@ export function ProtechtedLayout({
 
   return (
     <>
-      <Navbar isAutentificated={isAutentificated} user={user} onLogout={logout} />
+      <Navbar
+        isAutentificated={isAutentificated}
+        user={user}
+        onLogout={logout}
+      />
       <Outlet />
+      <Footer/>
     </>
   );
 }

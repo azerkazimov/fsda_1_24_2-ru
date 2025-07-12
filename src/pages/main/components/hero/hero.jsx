@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import "./hero.css";
+import Button from "../../../../components/ui/button/button";
 
 export default function Hero() {
   return (
@@ -18,12 +20,16 @@ export default function Hero() {
               </p>
 
               <div className="hero-btns">
-                <a href="/users" className="btn btn-primary">
-                  Select a coffee
-                </a>
-                <a href="/about" className="btn btn-secondary">
-                  More
-                </a>
+                <Button >
+                  <Link href="/users">
+                    Select a coffee
+                  </Link>
+                </Button>
+                <Button className='btn-secondary'>
+                  <Link href="/about">
+                    More
+                  </Link>
+                </Button>
               </div>
 
               <div className="counters">
@@ -50,7 +56,9 @@ export default function Hero() {
           </div>
           <div className="col-12 col-md-6">
             <div className="hero-image">
-              <div className="sticker"><span>45%</span></div>
+              <div className="sticker">
+                <span>45%</span>
+              </div>
               <img src="/usama.png" alt="" />
             </div>
           </div>

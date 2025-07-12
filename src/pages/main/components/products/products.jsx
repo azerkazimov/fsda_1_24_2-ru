@@ -1,10 +1,10 @@
-import ShadowGreen from "../../../../components/shadows/shadow";
+import ShadowGreen from "../../../../components/ui/shadows/shadow";
 import Slider from "../../../../components/slider/slider";
 import "./products.css";
 
 export default function Products() {
   return (
-    <>
+    <section>
       <div className="container">
         <div className="col-10">
           <div className="row">
@@ -26,6 +26,6 @@ export default function Products() {
       </div>
 
       <Slider />
-    </>
+    </section>
   );
 }

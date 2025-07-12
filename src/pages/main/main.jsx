@@ -1,4 +1,5 @@
 import Delicios from "./components/delicios/delicios";
+import Events from "./components/events/event";
 import HeroFrame from "./components/hero-frame/hero-frame";
 import Hero from "./components/hero/hero";
 import Products from "./components/products/products";
@@ -12,6 +13,7 @@ export default function Main() {
         <HeroFrame/>
         <Delicios/>
         <Products/>
+        <Events/>
       </div>
 
   );

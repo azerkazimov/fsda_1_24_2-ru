@@ -4,6 +4,7 @@ import { useAuthMiddleware } from "../middleware/use-auth-middleware";
 
 import Loading from "../components/loading/loading";
 import Navbar from "./navbar/navbar";
+import Footer from "./footer/footer";
 
 export function MainLayout() {
   const { isAutentificated, user, loading, logout } = useAuthMiddleware();
@@ -20,6 +21,7 @@ export function MainLayout() {
         onLogout={logout}
       />
       <Outlet />
+      <Footer/>
     </>
   );
 }

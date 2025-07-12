@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./navbar.css";
-import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar({ isAutentificated, user, onLogout }) {
-  const navigate = useNavigate();
+
   // const [loggedIn, setLoggedIn] = useState(null);
 
   const [scrolled, setScrolled] = useState(false);
